@@ -3,11 +3,14 @@
 import { useEffect, useState } from 'react';
 import { UsersTable } from '@/components/UsersTable';
 import { User } from '../types/User';
+import { useRouter } from 'next/navigation';
 
 export default function UsersPage() {
 	const [users, setUsers] = useState<User[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
+
+	const router = useRouter();
 
 	useEffect(() => {
 		const fetchUsers = async () => {
@@ -27,7 +30,17 @@ export default function UsersPage() {
 	}, []);
 
 	return (
-		<main className="p-6">
+		<main className="p-6 flex flex-col items-center">
+			<div className="flex items-center justify-between w-full mb-6">
+				<h1 className="text-2xl font-bold mb-6">User Management</h1>
+				<button
+					onClick={() => router.push('/users/create')}
+					className=" bg-green-600 text-white px-10 py-2 rounded hover:bg-green-800 mb-6 transition"
+				>
+					Add New User
+				</button>
+			</div>
+
 			{loading && <p>Loading users...</p>}
 			{error && <p className="text-red-500">{error}</p>}
 			{users && <UsersTable users={users} />}

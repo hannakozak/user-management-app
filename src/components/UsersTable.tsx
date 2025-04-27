@@ -1,6 +1,6 @@
 import { User } from '@/app/types/User';
 import clsx from 'clsx';
-import { FileUser, UserPen, UserX } from 'lucide-react';
+import { UserPen, UserX } from 'lucide-react';
 import React from 'react';
 
 interface UsersTableProps {
@@ -19,6 +19,10 @@ export const UsersTable: React.FC<UsersTableProps> = ({ users }) => {
 						<th>MFA_Mobile</th>
 						<th>IS OSP Admin</th>
 						<th>Status</th>
+						<th className="w-3">Block Access</th>
+						<th className="w-3">Functional User</th>
+						<th className="w-3">Color Mode</th>
+						<th className="w-3">Hierarchy Maintenance</th>
 						<th>Actions</th>
 					</tr>
 				</thead>
@@ -46,8 +50,13 @@ export const UsersTable: React.FC<UsersTableProps> = ({ users }) => {
 									{user.Status}
 								</span>
 							</td>
+							<td className="py-3 pl-6 pr-3">{user.BlockAccess}</td>
+							<td className="py-3 pl-6 pr-3">{user.FunctionalUser}</td>
+							<td className="py-3 pl-6 pr-3">{user.ColourMode}</td>
+							<td className="py-3 pl-6 pr-3">
+								{user.HierarchyMaintenance ? '+' : '-'}
+							</td>
 							<td className="flex gap-3 py-3 pl-6 pr-3">
-								<FileUser className="cursor-pointer text-gray-500 hover:text-gray-700" />
 								<UserPen className="cursor-pointer text-gray-500 hover:text-gray-700" />
 								<UserX className="cursor-pointer text-gray-500 hover:text-gray-700" />
 							</td>
@@ -77,7 +86,6 @@ export const UsersTable: React.FC<UsersTableProps> = ({ users }) => {
 								<p>{user.IsOSPAdmin ? 'Admin' : 'User'}</p>
 							</div>
 							<div className="flex justify-end gap-2">
-								<FileUser className="cursor-pointer text-gray-500 hover:text-gray-700" />
 								<UserPen className="cursor-pointer text-gray-500 hover:text-gray-700" />
 								<UserX className="cursor-pointer text-gray-500 hover:text-gray-700" />
 							</div>
