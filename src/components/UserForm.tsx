@@ -2,6 +2,7 @@
 
 import { User } from '@/app/types/User';
 import { useForm } from 'react-hook-form';
+import { useEffect } from 'react';
 
 interface UserFormProps {
 	onSubmit: (data: Partial<User>) => void;
@@ -13,9 +14,17 @@ export default function UserForm({ onSubmit, defaultValues }: UserFormProps) {
 		register,
 		handleSubmit,
 		formState: { errors },
+		reset,
 	} = useForm<Partial<User>>({
-		defaultValues,
+		defaultValues: defaultValues || {},
 	});
+
+	console.log('Default Values:', defaultValues);
+	useEffect(() => {
+		if (defaultValues) {
+			reset(defaultValues);
+		}
+	}, [defaultValues, reset]);
 
 	return (
 		<form

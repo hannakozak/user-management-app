@@ -1,6 +1,7 @@
 import { User } from '@/app/types/User';
 import clsx from 'clsx';
 import { UserPen, UserX } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
 interface UsersTableProps {
@@ -8,6 +9,11 @@ interface UsersTableProps {
 }
 
 export const UsersTable: React.FC<UsersTableProps> = ({ users }) => {
+	const router = useRouter();
+	const handleEdit = (user: User) => {
+		router.push(`/users/update`);
+		localStorage.setItem('userToUpdate', JSON.stringify(user));
+	};
 	return (
 		<div className="overflow-x-auto">
 			<table className="hidden min-w-full md:table">
@@ -57,7 +63,10 @@ export const UsersTable: React.FC<UsersTableProps> = ({ users }) => {
 								{user.HierarchyMaintenance ? '+' : '-'}
 							</td>
 							<td className="flex gap-3 py-3 pl-6 pr-3">
-								<UserPen className="cursor-pointer text-gray-500 hover:text-gray-700" />
+								<UserPen
+									onClick={() => handleEdit(user)}
+									className="cursor-pointer text-gray-500 hover:text-gray-700"
+								/>
 								<UserX className="cursor-pointer text-gray-500 hover:text-gray-700" />
 							</td>
 						</tr>
