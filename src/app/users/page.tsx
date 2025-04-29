@@ -12,22 +12,39 @@ export default function UsersPage() {
 
 	const router = useRouter();
 
-	useEffect(() => {
-		const fetchUsers = async () => {
-			try {
-				const res = await fetch('/api/users/get');
-				if (!res.ok) throw new Error('Failed to fetch users');
-				const data = await res.json();
-				setUsers(data);
-			} catch (err: unknown) {
-				setError(err instanceof Error ? err.message : 'Something went wrong');
-			} finally {
-				setLoading(false);
-			}
-		};
+	const fetchUsers = async () => {
+		try {
+			const res = await fetch('/api/users/get');
+			if (!res.ok) throw new Error('Failed to fetch users');
+			const data = await res.json();
+			setUsers(data);
+		} catch (err: unknown) {
+			setError(err instanceof Error ? err.message : 'Something went wrong');
+		} finally {
+			setLoading(false);
+		}
+	};
 
+	useEffect(() => {
 		fetchUsers();
 	}, []);
+
+	const handleDelete = async (userId: number) => {
+		const confirmed = confirm('Are you sure you want to delete this user?');
+		if (!confirmed) return;
+
+		const res = await fetch(`/api/users/delete?id=${userId}`, {
+			method: 'DELETE',
+		});
+
+		if (res.ok) {
+			alert('User deleted');
+			fetchUsers();
+		} else {
+			const error = await res.json();
+			alert(error.message || 'Delete failed');
+		}
+	};
 
 	return (
 		<main className="p-6 flex flex-col items-center">
@@ -43,7 +60,7 @@ export default function UsersPage() {
 
 			{loading && <p>Loading users...</p>}
 			{error && <p className="text-red-500">{error}</p>}
-			{users && <UsersTable users={users} />}
+			{users && <UsersTable users={users} handleDelete={handleDelete} />}
 		</main>
 	);
 }

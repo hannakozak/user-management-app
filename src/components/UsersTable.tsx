@@ -6,14 +6,16 @@ import React from 'react';
 
 interface UsersTableProps {
 	users: User[];
+	handleDelete: (userId: number) => void;
 }
 
-export const UsersTable: React.FC<UsersTableProps> = ({ users }) => {
+export const UsersTable = ({ users, handleDelete }: UsersTableProps) => {
 	const router = useRouter();
 	const handleEdit = (user: User) => {
 		router.push(`/users/update`);
 		localStorage.setItem('userToUpdate', JSON.stringify(user));
 	};
+
 	return (
 		<div className="overflow-x-auto">
 			<table className="hidden min-w-full md:table">
@@ -67,7 +69,10 @@ export const UsersTable: React.FC<UsersTableProps> = ({ users }) => {
 									onClick={() => handleEdit(user)}
 									className="cursor-pointer text-gray-500 hover:text-gray-700"
 								/>
-								<UserX className="cursor-pointer text-gray-500 hover:text-gray-700" />
+								<UserX
+									onClick={() => handleDelete(user.UserID)}
+									className="cursor-pointer text-gray-500 hover:text-gray-700"
+								/>
 							</td>
 						</tr>
 					))}
@@ -95,8 +100,14 @@ export const UsersTable: React.FC<UsersTableProps> = ({ users }) => {
 								<p>{user.IsOSPAdmin ? 'Admin' : 'User'}</p>
 							</div>
 							<div className="flex justify-end gap-2">
-								<UserPen className="cursor-pointer text-gray-500 hover:text-gray-700" />
-								<UserX className="cursor-pointer text-gray-500 hover:text-gray-700" />
+								<UserPen
+									onClick={() => handleEdit(user)}
+									className="cursor-pointer text-gray-500 hover:text-gray-700"
+								/>
+								<UserX
+									onClick={() => handleDelete(user.UserID)}
+									className="cursor-pointer text-gray-500 hover:text-gray-700"
+								/>
 							</div>
 						</div>
 						<div className="flex flex-col w-full pt-4">
