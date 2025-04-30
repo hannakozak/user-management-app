@@ -2,7 +2,8 @@ import { User } from '@/app/types/User';
 import clsx from 'clsx';
 import { UserPen, UserX } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import React from 'react';
+import React, { useState } from 'react';
+import { UserFilters } from './UsersFilters';
 
 interface UsersTableProps {
 	users: User[];
@@ -10,6 +11,29 @@ interface UsersTableProps {
 }
 
 export const UsersTable = ({ users, handleDelete }: UsersTableProps) => {
+	const [filters, setFilters] = useState({
+		status: '',
+		isAdmin: '',
+		blockAccess: '',
+		functionalUser: '',
+		hierarchyMaintenance: '',
+	});
+
+	const filteredUsers = users.filter((user) => {
+		return (
+			(user.Status === filters.status || filters.status === '') &&
+			(user.IsOSPAdmin === (filters.isAdmin === 'Admin') ||
+				filters.isAdmin === '') &&
+			(user.BlockAccess === (filters.blockAccess === 'true' ? 1 : 0) ||
+				filters.blockAccess === '') &&
+			(filters.functionalUser === '' ||
+				user.FunctionalUser === Number(filters.functionalUser)) &&
+			(user.HierarchyMaintenance ===
+				(filters.hierarchyMaintenance === 'true') ||
+				filters.hierarchyMaintenance === '')
+		);
+	});
+
 	const router = useRouter();
 	const handleEdit = (user: User) => {
 		router.push(`/users/update`);
@@ -18,6 +42,7 @@ export const UsersTable = ({ users, handleDelete }: UsersTableProps) => {
 
 	return (
 		<div className="overflow-x-auto">
+			<UserFilters filters={filters} onChange={setFilters} />
 			<table className="hidden min-w-full md:table">
 				<thead className="text-left text-sm text-gray-500">
 					<tr className="[&>th]:px-4 [&>th]:py-2">
@@ -35,7 +60,7 @@ export const UsersTable = ({ users, handleDelete }: UsersTableProps) => {
 					</tr>
 				</thead>
 				<tbody>
-					{users.map((user) => (
+					{filteredUsers.map((user) => (
 						<tr
 							key={user.UserID}
 							className="w-full border-b py-3 text-sm border-gray-300 hover:bg-gray-100"
@@ -79,7 +104,7 @@ export const UsersTable = ({ users, handleDelete }: UsersTableProps) => {
 				</tbody>
 			</table>
 			<div className="md:hidden flex flex-col gap-4 p-2 text-sm text-gray-500">
-				{users.map((user) => (
+				{filteredUsers.map((user) => (
 					<div
 						key={user.UserID}
 						className="mb-2 w-full rounded-md p-4 border-b border-gray-200 shadow-sm"
