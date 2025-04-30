@@ -48,7 +48,7 @@ export default function UsersPage() {
 
 	return (
 		<main className="flex flex-col items-center">
-			<div className="flex items-center justify-between w-full bg-green-700 h-16">
+			<div className="flex flex-col md:flex-row items-center  justify-around  md:justify-between w-full bg-green-700 h-24">
 				<h1 className="text-2xl font-bold px-6 text-white">User Management</h1>
 				<button
 					onClick={() => router.push('/users/create')}

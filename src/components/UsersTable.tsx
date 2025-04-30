@@ -41,7 +41,7 @@ export const UsersTable = ({ users, handleDelete }: UsersTableProps) => {
 	};
 
 	return (
-		<div className="overflow-x-auto">
+		<div className="overflow-x-auto max-w-l mx-3 mb-6">
 			<UserFilters filters={filters} onChange={setFilters} />
 			<table className="hidden min-w-full md:table">
 				<thead className="text-left text-sm text-gray-500">
@@ -103,7 +103,7 @@ export const UsersTable = ({ users, handleDelete }: UsersTableProps) => {
 					))}
 				</tbody>
 			</table>
-			<div className="md:hidden flex flex-col gap-4 p-2 text-sm text-gray-500">
+			<div className="md:hidden flex flex-col md:flex-row md:flex-wrap  gap-4 p-2 text-sm text-gray-500">
 				{filteredUsers.map((user) => (
 					<div
 						key={user.UserID}
