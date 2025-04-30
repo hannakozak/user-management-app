@@ -29,7 +29,7 @@ export default function UserForm({ onSubmit, defaultValues }: UserFormProps) {
 	return (
 		<form
 			onSubmit={handleSubmit(onSubmit)}
-			className="space-y-4 max-w-2xl mx-auto p-6 shadow-xl rounded-xl"
+			className="space-y-4 max-w-2xl mx-auto p-6 shadow-xl rounded-xl my-6"
 		>
 			<div className="flex flex-col space-y-1">
 				<label className="text-sm font-semibold">Display Name</label>

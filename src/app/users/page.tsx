@@ -47,12 +47,12 @@ export default function UsersPage() {
 	};
 
 	return (
-		<main className="p-6 flex flex-col items-center">
-			<div className="flex items-center justify-between w-full mb-6">
-				<h1 className="text-2xl font-bold mb-6">User Management</h1>
+		<main className="flex flex-col items-center">
+			<div className="flex items-center justify-between w-full bg-green-700 h-16">
+				<h1 className="text-2xl font-bold px-6 text-white">User Management</h1>
 				<button
 					onClick={() => router.push('/users/create')}
-					className=" bg-green-600 text-white px-10 py-2 rounded hover:bg-green-800 mb-6 transition"
+					className="border text-white px-10  mx-6 py-2 rounded hover:bg-green-800  transition"
 				>
 					Add New User
 				</button>

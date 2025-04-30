@@ -139,6 +139,24 @@ export const UsersTable = ({ users, handleDelete }: UsersTableProps) => {
 							<div>{user.Email}</div>
 							<div>{user.MFA_Mobile}</div>
 						</div>
+						<div className="flex flex-col w-full pt-4">
+							<div>
+								<span className="font-bold">Functional User:</span>
+								{user.FunctionalUser}
+							</div>
+							<div>
+								<span className="font-bold">Block Access: </span>
+								{user.BlockAccess}
+							</div>
+							<div>
+								<span className="font-bold">Colour Mode: </span>
+								{user.ColourMode}
+							</div>
+							<div>
+								<span className="font-bold"> Hierarchy Maintenance: </span>
+								{user.HierarchyMaintenance ? '+' : '-'}
+							</div>
+						</div>
 					</div>
 				))}
 			</div>

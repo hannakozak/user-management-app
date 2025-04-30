@@ -21,8 +21,10 @@ export default function CreateUserPage() {
 	};
 
 	return (
-		<div className="p-8">
-			<h1 className="text-2xl text-center font-bold mb-6">Create New User</h1>
+		<div>
+			<h1 className="flex text-2xl bg-green-700 h-16 text-white font-bold justify-center items-center">
+				Create New User
+			</h1>
 			<UserForm onSubmit={handleCreate} />
 		</div>
 	);
